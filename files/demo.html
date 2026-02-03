@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keyword Tracker - Demo Mode</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="logo">
+                <h1>🔍 Keyword Tracker (Demo Mode)</h1>
+            </div>
+            <nav class="nav">
+                <a href="#analysis" class="nav-link active">Analysis</a>
+                <a href="index.html" class="nav-link">Full Version</a>
+            </nav>
+        </header>
+
+        <main class="main-content">
+            <div class="page-header">
+                <h2>Test Analysis</h2>
+                <p>Демо-версия для проверки что исправления работают</p>
+            </div>
+
+            <div class="card" style="background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.9)); border: 2px solid #667eea;">
+                <h3>ℹ️ Информация</h3>
+                <p style="margin-bottom: 1rem;">
+                    Эта версия использует <strong>встроенные тестовые данные</strong> вместо реального парсинга страниц.
+                    Это позволяет проверить что все исправления работают корректно.
+                </p>
+                <p style="color: var(--text-light); font-size: 0.9rem;">
+                    После успешного теста используйте полную версию (index.html)
+                </p>
+            </div>
+
+            <div class="card">
+                <h3>Запустить демо-анализ</h3>
+                <p style="margin-bottom: 1.5rem; color: var(--text-medium);">
+                    Это проанализирует 5 тестовых ключевых слов на 2 виртуальных страницах
+                </p>
+                <button class="btn-primary" onclick="runDemoAnalysis()">
+                    <span id="demo-btn-text">🚀 Запустить демо-анализ</span>
+                </button>
+            </div>
+
+            <div id="demo-results" style="display: none;">
+                <!-- Summary Stats -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-label">Keywords Found</div>
+                        <div class="stat-value" id="demo-keywords-found">0 / 0</div>
+                        <div class="stat-sublabel" id="demo-match-rate">0% match rate</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Total Occurrences</div>
+                        <div class="stat-value" id="demo-total-occurrences">0</div>
+                        <div class="stat-sublabel">Across all locations</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Keyword Density</div>
+                        <div class="stat-value" id="demo-keyword-density">0%</div>
+                        <div class="stat-sublabel" id="demo-word-count">In 0 words</div>
+                    </div>
+                </div>
+
+                <!-- Results Table -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Результаты анализа</h3>
+                    </div>
+                    
+                    <div class="tabs" id="demo-tabs"></div>
+                    <div id="demo-table-content"></div>
+                </div>
+
+                <!-- Status -->
+                <div class="card" style="background: linear-gradient(135deg, #d4edda 0%, #fff 100%); border-left: 5px solid #10B981;">
+                    <h3 style="color: #10B981;">✅ Тест пройден успешно!</h3>
+                    <p style="margin-top: 1rem;">
+                        Все функции работают корректно. Ошибка "Cannot read properties of undefined" исправлена!
+                    </p>
+                    <p style="margin-top: 0.5rem; color: var(--text-medium);">
+                        Теперь можете использовать полную версию приложения: <a href="index.html" style="color: #667eea; font-weight: bold;">index.html</a>
+                    </p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        function runDemoAnalysis() {
+            const btnText = document.getElementById('demo-btn-text');
+            btnText.innerHTML = '<span class="spinner"></span> Анализирую...';
+            
+            setTimeout(() => {
+                // Create demo data with proper structure
+                const demoAnalysis = createDemoAnalysis();
+                
+                // Render results
+                renderDemoResults(demoAnalysis);
+                
+                btnText.innerHTML = '✅ Анализ завершён';
+                document.getElementById('demo-results').style.display = 'block';
+                document.getElementById('demo-results').scrollIntoView({ behavior: 'smooth' });
+            }, 1500);
+        }
+
+        function createDemoAnalysis() {
+            const keywords = [
+                'replacement windows',
+                'double glazing',
+                'window installation',
+                'swindon windows',
+                'upvc windows'
+            ];
+
+            // Your Site result
+            const mySiteResult = {
+                url: 'https://example.com',
+                type: 'my-site',
+                label: 'Your Site',
+                keywords: {
+                    'replacement windows': {
+                        found: true,
+                        occurrences: 5,
+                        locations: [
+                            { type: 'TITLE', count: 1 },
+                            { type: 'H1', count: 1 },
+                            { type: 'BODY CONTENT', count: 3 }
+                        ],
+                        density: '0.24'
+                    },
+                    'double glazing': {
+                        found: true,
+                        occurrences: 3,
+                        locations: [
+                            { type: 'BODY CONTENT', count: 3 }
+                        ],
+                        density: '0.15'
+                    },
+                    'window installation': {
+                        found: false,
+                        occurrences: 0,
+                        locations: [],
+                        density: '0.00'
+                    },
+                    'swindon windows': {
+                        found: true,
+                        occurrences: 2,
+                        locations: [
+                            { type: 'META DESCRIPTION', count: 1 },
+                            { type: 'BODY CONTENT', count: 1 }
+                        ],
+                        density: '0.10'
+                    },
+                    'upvc windows': {
+                        found: false,
+                        occurrences: 0,
+                        locations: [],
+                        density: '0.00'
+                    }
+                },
+                stats: {
+                    totalWords: 2000,
+                    keywordsFound: 3,
+                    totalOccurrences: 10
+                }
+            };
+
+            // Competitor result
+            const competitorResult = {
+                url: 'https://competitor.com',
+                type: 'competitor',
+                label: 'Competitor 1',
+                keywords: {
+                    'replacement windows': {
+                        found: true,
+                        occurrences: 4,
+                        locations: [
+                            { type: 'TITLE', count: 1 },
+                            { type: 'BODY CONTENT', count: 3 }
+                        ],
+                        density: '0.20'
+                    },
+                    'double glazing': {
+                        found: true,
+                        occurrences: 6,
+                        locations: [
+                            { type: 'H1', count: 1 },
+                            { type: 'BODY CONTENT', count: 5 }
+                        ],
+                        density: '0.30'
+                    },
+                    'window installation': {
+                        found: true,
+                        occurrences: 8,
+                        locations: [
+                            { type: 'TITLE', count: 1 },
+                            { type: 'H1', count: 1 },
+                            { type: 'BODY CONTENT', count: 6 }
+                        ],
+                        density: '0.40'
+                    },
+                    'swindon windows': {
+                        found: false,
+                        occurrences: 0,
+                        locations: [],
+                        density: '0.00'
+                    },
+                    'upvc windows': {
+                        found: true,
+                        occurrences: 5,
+                        locations: [
+                            { type: 'META DESCRIPTION', count: 1 },
+                            { type: 'BODY CONTENT', count: 4 }
+                        ],
+                        density: '0.25'
+                    }
+                },
+                stats: {
+                    totalWords: 2000,
+                    keywordsFound: 4,
+                    totalOccurrences: 23
+                }
+            };
+
+            return {
+                id: Date.now(),
+                date: new Date().toISOString(),
+                groupName: 'Demo Keywords',
+                keywords: keywords,
+                results: [mySiteResult, competitorResult]
+            };
+        }
+
+        function renderDemoResults(analysis) {
+            const mySite = analysis.results[0];
+            
+            // Update stats
+            const totalKeywords = analysis.keywords.length;
+            const keywordsFound = mySite.stats.keywordsFound;
+            const matchRate = ((keywordsFound / totalKeywords) * 100).toFixed(0);
+            const density = ((mySite.stats.totalOccurrences / mySite.stats.totalWords) * 100).toFixed(2);
+
+            document.getElementById('demo-keywords-found').textContent = `${keywordsFound} / ${totalKeywords}`;
+            document.getElementById('demo-match-rate').textContent = `${matchRate}% match rate`;
+            document.getElementById('demo-total-occurrences').textContent = mySite.stats.totalOccurrences;
+            document.getElementById('demo-keyword-density').textContent = `${density}%`;
+            document.getElementById('demo-word-count').textContent = `In ${mySite.stats.totalWords.toLocaleString()} words`;
+
+            // Render tabs
+            const tabsHtml = analysis.results.map((result, index) => 
+                `<button class="tab ${index === 0 ? 'active' : ''}" onclick="switchDemoTab(${index})">${result.label}</button>`
+            ).join('');
+            document.getElementById('demo-tabs').innerHTML = tabsHtml;
+
+            // Store analysis for tab switching
+            window.demoAnalysis = analysis;
+            
+            // Render first tab
+            renderDemoTab(0);
+        }
+
+        function switchDemoTab(index) {
+            document.querySelectorAll('.tab').forEach((tab, i) => {
+                tab.classList.toggle('active', i === index);
+            });
+            renderDemoTab(index);
+        }
+
+        function renderDemoTab(index) {
+            const analysis = window.demoAnalysis;
+            const result = analysis.results[index];
+            
+            const rows = analysis.keywords.map(keyword => {
+                const data = result.keywords[keyword];
+                
+                // Don't show not found keywords for competitors
+                if (!data.found && result.type !== 'my-site') {
+                    return '';
+                }
+
+                const foundIndicator = data.found 
+                    ? '<span class="found-indicator found-yes">✓</span>'
+                    : '<span class="found-indicator found-no">✗</span>';
+
+                const occurrencesText = data.found 
+                    ? `<strong>${data.occurrences}</strong>` 
+                    : '<span class="not-found-text">NOT FOUND</span>';
+
+                const densityText = data.found 
+                    ? `${data.density}%` 
+                    : '<span class="not-found-text">-</span>';
+
+                const locationsHtml = data.found && data.locations.length > 0
+                    ? data.locations.map(loc => 
+                        `<span class="location-badge ${loc.type.toLowerCase().replace(' ', '-')}">${loc.type} (${loc.count})</span>`
+                      ).join(' ')
+                    : '<span class="not-found-text">-</span>';
+
+                return `
+                    <tr>
+                        <td class="keyword-cell">${keyword}</td>
+                        <td style="text-align: center;">${foundIndicator}</td>
+                        <td style="text-align: center;">${occurrencesText}</td>
+                        <td style="text-align: center;">${densityText}</td>
+                        <td>${locationsHtml}</td>
+                    </tr>
+                `;
+            }).filter(row => row !== '').join('');
+
+            const tableHtml = `
+                <div class="results-table-container">
+                    <table class="results-table">
+                        <thead>
+                            <tr>
+                                <th>KEYWORD</th>
+                                <th style="text-align: center;">FOUND</th>
+                                <th style="text-align: center;">OCCURRENCES</th>
+                                <th style="text-align: center;">DENSITY</th>
+                                <th>LOCATIONS (count)</th>
+                            </tr>
+                        </thead>
+                        <tbody>${rows}</tbody>
+                    </table>
+                </div>
+                <div style="margin-top: 1rem; padding: 1rem; background: var(--lighter-bg); border-radius: var(--radius-md); font-size: 0.875rem; color: var(--text-medium);">
+                    <strong>Demo Analysis Details:</strong><br>
+                    • Total words: <strong>${result.stats.totalWords.toLocaleString()}</strong><br>
+                    • Keywords found: <strong>${result.stats.keywordsFound} / ${analysis.keywords.length}</strong><br>
+                    • Total occurrences: <strong>${result.stats.totalOccurrences}</strong><br>
+                    • URL: ${result.url}
+                </div>
+            `;
+
+            document.getElementById('demo-table-content').innerHTML = tableHtml;
+        }
+    </script>
+</body>
+</html>

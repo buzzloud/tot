@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Keyword Presence & Competitor Gap Analyzer</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div id="app">
+      <div id="js-warning" class="panel warning">
+        <strong>App not initialized.</strong>
+        <div class="hint">
+          If you opened this file directly, run the dev server: <code>npm run dev</code>.
+        </div>
+      </div>
+      <header class="app-header">
+        <h1>Keyword Presence & Competitor Gap Analyzer</h1>
+        <p class="subtitle">
+          Browser-first analysis with predictable keyword matching and clear gaps.
+        </p>
+      </header>
+
+      <section class="panel" id="groups-panel">
+        <h2>Keyword Groups</h2>
+        <div class="form-row">
+          <label for="group-name">Group name</label>
+          <input id="group-name" type="text" placeholder="e.g., Local SEO Focus" />
+        </div>
+        <div class="form-row">
+          <label for="keywords-input">Keywords (one per line)</label>
+          <textarea
+            id="keywords-input"
+            rows="6"
+            placeholder="replacement windows&#10;double glazing&#10;window installation"
+          ></textarea>
+        </div>
+        <div class="actions">
+          <button id="save-group-btn" class="btn primary" type="button">Save group</button>
+          <button id="cancel-edit-btn" class="btn secondary hidden" type="button">
+            Cancel edit
+          </button>
+        </div>
+        <div id="group-warning" class="hint"></div>
+
+        <div id="groups-list" class="group-list"></div>
+      </section>
+
+      <section class="panel" id="analyzer-panel">
+        <h2>Analyzer</h2>
+        <div class="form-row">
+          <label for="my-url">My URL</label>
+          <input id="my-url" type="url" placeholder="https://your-site.com" />
+        </div>
+
+        <div class="form-row">
+          <label>Competitor URLs (up to 10)</label>
+          <div id="competitors-container"></div>
+          <button id="add-competitor-btn" class="btn secondary" type="button">
+            Add competitor
+          </button>
+        </div>
+
+        <div class="form-row">
+          <label for="keyword-group-select">Keyword group</label>
+          <select id="keyword-group-select"></select>
+        </div>
+
+        <button id="analyze-btn" class="btn primary" type="button">
+          Analyze
+        </button>
+        <div id="analysis-status" class="hint"></div>
+      </section>
+
+      <section class="panel" id="proxy-panel">
+        <h2>Fetch & Proxy</h2>
+        <p class="hint">
+          Some sites block browser fetches. A local proxy is the most reliable option.
+        </p>
+        <div class="form-row">
+          <label for="proxy-mode">Mode</label>
+          <select id="proxy-mode">
+            <option value="auto">Auto (local + public fallbacks)</option>
+            <option value="local">Local proxy only</option>
+            <option value="custom">Custom proxy only</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label for="proxy-template">Custom proxy template</label>
+          <input
+            id="proxy-template"
+            type="text"
+            placeholder="https://your-proxy.example.com/?url={url}"
+          />
+        </div>
+        <div class="form-row">
+          <label>
+            <input id="render-js" type="checkbox" />
+            Render JS pages (experimental, requires Playwright)
+          </label>
+        </div>
+        <button id="save-proxy-btn" class="btn secondary" type="button">
+          Save proxy settings
+        </button>
+        <div id="proxy-hint" class="hint">Local proxy expected at http://localhost:8787/proxy.</div>
+        <div class="hint">Template tokens: {url} (encoded), {url_raw} (raw).</div>
+      </section>
+
+      <section class="panel" id="results-panel">
+        <h2>Results</h2>
+        <div id="results-meta" class="results-meta"></div>
+        <div id="results-content"></div>
+
+        <h3>Gap keywords</h3>
+        <div id="gap-content"></div>
+
+        <div class="actions">
+          <button id="export-html-btn" class="btn secondary" type="button">
+            Export HTML
+          </button>
+          <button id="export-pdf-btn" class="btn secondary" type="button">
+            Export PDF
+          </button>
+        </div>
+      </section>
+    </div>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

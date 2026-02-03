@@ -1,0 +1,9 @@
+import { initApp } from "./app/app";
+
+const boot = () => initApp();
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", boot);
+} else {
+  boot();
+}
