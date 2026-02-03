@@ -176,6 +176,27 @@ select {
   text-align: left;
 }
 
+.summary-panel {
+  margin-bottom: 20px;
+}
+
+.summary-table td {
+  vertical-align: top;
+}
+
+.summary-url {
+  max-width: 220px;
+  word-break: break-all;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.kw-hit {
+  background: #ffe38a;
+  padding: 0 2px;
+  border-radius: 3px;
+}
+
 .keyword-cell {
   cursor: pointer;
 }
@@ -186,6 +207,22 @@ select {
 
 .keyword-cell.copied {
   background: #e3f5e9;
+}
+
+.gap-badge {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 1px 6px;
+  border-radius: 999px;
+  background: #ffe38a;
+  color: #6b4c00;
+  font-size: 11px;
+  font-weight: 600;
+  vertical-align: middle;
+}
+
+.gap-row {
+  background: #fff1d6;
 }
 
 .pill {

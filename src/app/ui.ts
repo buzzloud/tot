@@ -10,6 +10,7 @@ import { escapeHtml, dedupePreserveOrder } from "../utils/text";
 import { isValidUrl } from "../utils/validation";
 import { qs } from "../utils/dom";
 import { createId } from "../utils/id";
+import { renderSummaryTable } from "./summary-ui";
 
 const MAX_COMPETITORS = 10;
 
@@ -429,10 +430,36 @@ function renderResults(results: PageResult[], analysis: { groupName: string; key
   const meta = qs<HTMLDivElement>("#results-meta");
   meta.textContent = `Group: ${analysis.groupName} | Keywords: ${analysis.keywords.length}`;
 
+  const summaryContainer = qs<HTMLDivElement>("#summary-table");
+  if (state.currentAnalysis) {
+    summaryContainer.innerHTML = renderSummaryTable(state.currentAnalysis);
+  } else {
+    summaryContainer.innerHTML = "";
+  }
+
   const container = qs<HTMLDivElement>("#results-content");
+  const mySiteResult = results.find((item) => item.type === "my-site");
+  const myFound = new Map<string, boolean>();
+  if (mySiteResult) {
+    mySiteResult.matches.forEach((match) => {
+      myFound.set(match.keyword, match.found);
+    });
+  }
 
   container.innerHTML = results
     .map((result) => {
+      const competitorFound = new Map<string, boolean>();
+      if (result.type === "my-site") {
+        results
+          .filter((item) => item.type === "competitor")
+          .forEach((competitor) => {
+            competitor.matches.forEach((match) => {
+              if (match.found) {
+                competitorFound.set(match.keyword, true);
+              }
+            });
+          });
+      }
       if (result.fetchStatus === "error") {
         const proxyTip =
           state.proxySettings.mode === "local"
@@ -454,9 +481,19 @@ function renderResults(results: PageResult[], analysis: { groupName: string; key
         if (!match) {
           return "";
         }
+        const showGap =
+          result.type === "my-site" &&
+          !match.found &&
+          competitorFound.get(keyword) === true;
+        const gapBadge = showGap ? "<span class=\"gap-badge\">Gap</span>" : "";
+        const gapRow =
+          result.type === "competitor" && match.found && myFound.get(keyword) === false;
+        const rowClass = gapRow ? "gap-row" : "";
         return `
-          <tr>
-            <td class="keyword-cell" data-keyword="${encodeURIComponent(keyword)}">${escapeHtml(keyword)}</td>
+          <tr class="${rowClass}">
+            <td class="keyword-cell" data-keyword="${encodeURIComponent(keyword)}">
+              ${escapeHtml(keyword)} ${gapBadge}
+            </td>
             <td>${match.found ? "<span class=\"pill ok\">Yes</span>" : "<span class=\"pill no\">No</span>"}</td>
             <td>${match.occurrencesTotal}</td>
             <td>${match.occurrencesByBucket.title}</td>

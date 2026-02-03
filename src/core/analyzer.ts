@@ -9,6 +9,7 @@ import { fetchHtml } from "./fetcher";
 import { extractContent } from "./extractor";
 import { buildEmptyMatches, matchKeywords } from "./matcher";
 import { createId } from "../utils/id";
+import { getDomainLabel } from "../utils/url";
 
 export interface AnalyzeTarget {
   url: string;
@@ -47,6 +48,9 @@ export async function analyzePage(
       fetchStatus: "success",
       warningMessage,
       previewText: content.previewText,
+      title: content.title,
+      metaDescription: content.metaDescription,
+      h1Text: content.h1,
       wordCount: content.wordCount,
       matches
     };
@@ -59,18 +63,26 @@ export async function analyzePage(
       fetchStatus: "error",
       errorMessage: message,
       wordCount: 0,
+      title: "",
+      metaDescription: "",
+      h1Text: "",
       matches: buildEmptyMatches(keywords)
     };
   }
 }
 
 export async function runAnalysis(params: AnalyzeParams): Promise<AnalysisResult> {
+  const myDomain = getDomainLabel(params.myUrl);
   const targets: AnalyzeTarget[] = [
-    { url: params.myUrl, type: "my-site", label: "Your Site" },
+    {
+      url: params.myUrl,
+      type: "my-site",
+      label: myDomain ? `Your Site (${myDomain})` : "Your Site"
+    },
     ...params.competitorUrls.map((url, index) => ({
       url,
       type: "competitor",
-      label: `Competitor ${index + 1}`
+      label: getDomainLabel(url) || `Competitor ${index + 1}`
     }))
   ];
 

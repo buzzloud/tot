@@ -44,6 +44,9 @@ export interface PageResult {
   errorMessage?: string;
   warningMessage?: string;
   previewText?: string;
+  title: string;
+  metaDescription: string;
+  h1Text: string;
   wordCount: number;
   matches: KeywordMatch[];
 }
