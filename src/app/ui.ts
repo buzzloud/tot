@@ -11,18 +11,50 @@ import { isValidUrl } from "../utils/validation";
 import { qs } from "../utils/dom";
 import { createId } from "../utils/id";
 import { renderSummaryTable } from "./summary-ui";
+import { renderFaqTable } from "./faq-ui";
+import { renderReviewsTable } from "./reviews-ui";
+import { renderSchemaTable } from "./schema-ui";
+import { renderFirst100Table } from "./first100-ui";
+import { renderImageAltsTable } from "./image-alts-ui";
+import { renderTechnicalChecksTable } from "./technical-checks-ui";
+import { renderContentStructureTable } from "./content-structure-ui";
+import { renderVideoEmbedsTable } from "./video-embeds-ui";
+import { openSerpRankingWindow } from "./serp-window";
+import ukCitiesData from "../data/uk-major-cities-50k.json";
+import { renderRankingsArchiveTable, renderRankingsHistoryTable } from "./rankings-history-ui";
+import {
+  addRankingHistoryEntry,
+  archiveRankingHistoryEntry,
+  clearRankingsHistory,
+  loadArchivedRankingsHistory,
+  loadRankingsHistory
+} from "../storage/rankings-history";
 
 const MAX_COMPETITORS = 10;
+const SERP_LOCATION_STORAGE_KEY = "serp_location";
+const SERP_DEVICE_STORAGE_KEY = "serp_device";
+const DEFAULT_SERP_LOCATION = "London, England, United Kingdom";
+const DEFAULT_SERP_DEVICE: "desktop" | "mobile" = "desktop";
+const SERP_CITY_OPTIONS = Array.from(
+  new Set(
+    (ukCitiesData.cities || [])
+      .map((item) => (item && typeof item.location === "string" ? item.location.trim() : ""))
+      .filter((item) => item.length > 0)
+  )
+);
 
 export function initUi(): void {
   state.keywordGroups = loadGroups();
   state.proxySettings = loadProxySettings();
+  state.rankingsHistory = loadRankingsHistory();
+  state.archivedRankingsHistory = loadArchivedRankingsHistory();
   bindEvents();
   renderGroupList();
   refreshGroupSelect();
   ensureCompetitorRow();
   hydrateProxySettings();
-  bindKeywordCopy();
+  bindResultInteractions();
+  renderRankingsHistory();
   (window as typeof window & { __appBooted?: boolean }).__appBooted = true;
 }
 
@@ -47,18 +79,99 @@ function bindEvents(): void {
   qs<HTMLButtonElement>("#add-competitor-btn").addEventListener("click", () => {
     addCompetitorRow();
   });
+  qs<HTMLButtonElement>("#toggle-groups-panel-btn").addEventListener("click", () => {
+    toggleGroupsPanel();
+  });
   qs<HTMLButtonElement>("#analyze-btn").addEventListener("click", handleAnalyze);
   qs<HTMLButtonElement>("#export-html-btn").addEventListener("click", handleExportHtml);
   qs<HTMLButtonElement>("#export-pdf-btn").addEventListener("click", () => {
     alert("PDF export is not implemented yet.");
   });
   qs<HTMLButtonElement>("#save-proxy-btn").addEventListener("click", handleSaveProxy);
+  qs<HTMLButtonElement>("#toggle-proxy-panel-btn").addEventListener("click", () => {
+    toggleProxyPanel();
+  });
+  qs<HTMLButtonElement>("#clear-rankings-history-btn").addEventListener("click", () => {
+    clearRankingsHistory();
+    state.rankingsHistory = [];
+    renderRankingsHistory();
+  });
+  bindRankingsHistoryInteractions();
+  bindSummaryCopy();
 }
 
-function bindKeywordCopy(): void {
+function toggleProxyPanel(forceState?: boolean): void {
+  const content = qs<HTMLDivElement>("#proxy-panel-content");
+  const button = qs<HTMLButtonElement>("#toggle-proxy-panel-btn");
+  const nextOpen =
+    typeof forceState === "boolean" ? forceState : content.classList.contains("hidden");
+  content.classList.toggle("hidden", !nextOpen);
+  button.textContent = nextOpen ? "Close" : "Open";
+}
+
+function toggleGroupsPanel(forceState?: boolean): void {
+  const content = qs<HTMLDivElement>("#groups-panel-content");
+  const button = qs<HTMLButtonElement>("#toggle-groups-panel-btn");
+  const nextOpen =
+    typeof forceState === "boolean" ? forceState : content.classList.contains("hidden");
+  content.classList.toggle("hidden", !nextOpen);
+  button.textContent = nextOpen ? "Close" : "Open";
+}
+
+function bindResultInteractions(): void {
   const container = qs<HTMLDivElement>("#results-content");
-  container.addEventListener("click", (event) => {
+  container.addEventListener("input", (event) => {
     const target = event.target as HTMLElement | null;
+    const locationInput = target?.closest(".serp-location-input") as HTMLInputElement | null;
+    if (!locationInput) {
+      return;
+    }
+    const value = locationInput.value.trim();
+    if (value) {
+      saveSerpLocation(value);
+    }
+  });
+
+  container.addEventListener("click", async (event) => {
+    const target = event.target as HTMLElement | null;
+    const deviceButton = target?.closest(".serp-device-btn") as HTMLButtonElement | null;
+    if (deviceButton) {
+      event.preventDefault();
+      event.stopPropagation();
+      const nextDevice = deviceButton.dataset.device === "mobile" ? "mobile" : "desktop";
+      saveSerpDevice(nextDevice);
+      refreshSerpDeviceButtons(container);
+      return;
+    }
+
+    const serpButton = target?.closest(".serp-check-btn") as HTMLButtonElement | null;
+    if (serpButton) {
+      event.preventDefault();
+      event.stopPropagation();
+
+      const encodedKeyword = serpButton.dataset.keyword || "";
+      const keyword = encodedKeyword
+        ? decodeURIComponent(encodedKeyword)
+        : serpButton.getAttribute("data-keyword") || "";
+      if (!keyword || !state.currentAnalysis) {
+        return;
+      }
+
+      const location = getSerpLocationFromControls(container);
+      const device = getSavedSerpDevice();
+      const serpData = await openSerpRankingWindow(keyword, state.currentAnalysis, location, device);
+      if (serpData) {
+        state.rankingsHistory = addRankingHistoryEntry(state.rankingsHistory, {
+          id: createId(),
+          createdAt: new Date().toISOString(),
+          keyword,
+          response: serpData
+        });
+        renderRankingsHistory();
+      }
+      return;
+    }
+
     const cell = target?.closest(".keyword-cell") as HTMLElement | null;
     if (!cell) {
       return;
@@ -70,6 +183,158 @@ function bindKeywordCopy(): void {
       cell.classList.add("copied");
       window.setTimeout(() => cell.classList.remove("copied"), 600);
     }
+  });
+}
+
+function renderRankingsHistory(): void {
+  const activeContainer = qs<HTMLDivElement>("#rankings-history-content");
+  activeContainer.innerHTML = renderRankingsHistoryTable(state.rankingsHistory);
+
+  const archiveContainer = qs<HTMLDivElement>("#rankings-archive-content");
+  archiveContainer.innerHTML = renderRankingsArchiveTable(state.archivedRankingsHistory);
+}
+
+function bindRankingsHistoryInteractions(): void {
+  const activeContainer = qs<HTMLDivElement>("#rankings-history-content");
+  activeContainer.addEventListener("click", (event) => {
+    const target = event.target as HTMLElement | null;
+    const archiveButton = target?.closest(".history-archive-btn") as HTMLButtonElement | null;
+    if (!archiveButton) {
+      return;
+    }
+
+    const entryId = archiveButton.dataset.entryId || "";
+    if (!entryId) {
+      return;
+    }
+
+    const next = archiveRankingHistoryEntry(
+      state.rankingsHistory,
+      state.archivedRankingsHistory,
+      entryId
+    );
+    state.rankingsHistory = next.activeEntries;
+    state.archivedRankingsHistory = next.archivedEntries;
+    renderRankingsHistory();
+  });
+}
+
+function getSavedSerpLocation(): string {
+  try {
+    return localStorage.getItem(SERP_LOCATION_STORAGE_KEY) || DEFAULT_SERP_LOCATION;
+  } catch {
+    return DEFAULT_SERP_LOCATION;
+  }
+}
+
+function saveSerpLocation(location: string): void {
+  try {
+    localStorage.setItem(SERP_LOCATION_STORAGE_KEY, location);
+  } catch {
+    // Ignore storage errors.
+  }
+}
+
+function getSavedSerpDevice(): "desktop" | "mobile" {
+  try {
+    return localStorage.getItem(SERP_DEVICE_STORAGE_KEY) === "mobile" ? "mobile" : "desktop";
+  } catch {
+    return DEFAULT_SERP_DEVICE;
+  }
+}
+
+function saveSerpDevice(device: "desktop" | "mobile"): void {
+  try {
+    localStorage.setItem(SERP_DEVICE_STORAGE_KEY, device);
+  } catch {
+    // Ignore storage errors.
+  }
+}
+
+function getSerpLocationFromControls(container: HTMLElement): string {
+  const locationInput = container.querySelector<HTMLInputElement>(".serp-location-input");
+  const typed = locationInput?.value.trim() || "";
+  if (typed) {
+    saveSerpLocation(typed);
+    return typed;
+  }
+
+  const fallback = getSavedSerpLocation();
+  if (locationInput) {
+    locationInput.value = fallback;
+  }
+  return fallback;
+}
+
+function refreshSerpDeviceButtons(container: HTMLElement): void {
+  const current = getSavedSerpDevice();
+  container.querySelectorAll<HTMLButtonElement>(".serp-device-btn").forEach((button) => {
+    button.classList.toggle("active", button.dataset.device === current);
+    button.setAttribute("aria-pressed", button.dataset.device === current ? "true" : "false");
+  });
+}
+
+function renderSerpControls(): string {
+  const location = getSavedSerpLocation();
+  const device = getSavedSerpDevice();
+  const cityOptions = SERP_CITY_OPTIONS.map(
+    (city) => `<option value="${escapeHtml(city)}"></option>`
+  ).join("");
+
+  return `
+    <div class="serp-controls-panel">
+      <div class="form-row">
+        <label for="serp-location-input">SERP location</label>
+        <input
+          id="serp-location-input"
+          type="text"
+          class="serp-location-input"
+          list="serp-city-options"
+          value="${escapeHtml(location)}"
+          placeholder="Start typing a city, e.g. Swindon, England, United Kingdom"
+        />
+        <datalist id="serp-city-options">
+          ${cityOptions}
+        </datalist>
+      </div>
+      <div class="serp-device-toggle" role="group" aria-label="SERP device">
+        <button
+          type="button"
+          class="btn secondary serp-device-btn ${device === "desktop" ? "active" : ""}"
+          data-device="desktop"
+          aria-pressed="${device === "desktop" ? "true" : "false"}"
+        >
+          Desktop
+        </button>
+        <button
+          type="button"
+          class="btn secondary serp-device-btn ${device === "mobile" ? "active" : ""}"
+          data-device="mobile"
+          aria-pressed="${device === "mobile" ? "true" : "false"}"
+        >
+          Mobile
+        </button>
+      </div>
+    </div>
+  `;
+}
+
+function bindSummaryCopy(): void {
+  const container = qs<HTMLDivElement>("#summary-table");
+  container.addEventListener("click", (event) => {
+    const target = event.target as HTMLElement | null;
+    const button = target?.closest(".copy-summary") as HTMLElement | null;
+    if (!button) {
+      return;
+    }
+    const encoded = button.dataset.copyText || "";
+    const text = encoded ? decodeURIComponent(encoded) : "";
+    if (text.trim().length === 0) {
+      return;
+    }
+    copyToClipboard(text);
+    button.classList.add("copied");
+    window.setTimeout(() => button.classList.remove("copied"), 600);
   });
 }
 
@@ -437,6 +702,13 @@ function renderResults(results: PageResult[], analysis: { groupName: string; key
     summaryContainer.innerHTML = "";
   }
 
+  const first100Container = qs<HTMLDivElement>("#first100-table");
+  if (state.currentAnalysis) {
+    first100Container.innerHTML = renderFirst100Table(state.currentAnalysis);
+  } else {
+    first100Container.innerHTML = "";
+  }
+
   const container = qs<HTMLDivElement>("#results-content");
   const mySiteResult = results.find((item) => item.type === "my-site");
   const myFound = new Map<string, boolean>();
@@ -492,7 +764,13 @@ function renderResults(results: PageResult[], analysis: { groupName: string; key
         return `
           <tr class="${rowClass}">
             <td class="keyword-cell" data-keyword="${encodeURIComponent(keyword)}">
-              ${escapeHtml(keyword)} ${gapBadge}
+              <span>${escapeHtml(keyword)} ${gapBadge}</span>
+              <button
+                class="btn secondary serp-check-btn"
+                type="button"
+                title="Check SERP rankings"
+                data-keyword="${encodeURIComponent(keyword)}"
+              >&#127760;</button>
             </td>
             <td>${match.found ? "<span class=\"pill ok\">Yes</span>" : "<span class=\"pill no\">No</span>"}</td>
             <td>${match.occurrencesTotal}</td>
@@ -542,6 +820,7 @@ function renderResults(results: PageResult[], analysis: { groupName: string; key
             </details>
           `
           : "";
+      const serpControlsBlock = result.type === "my-site" ? renderSerpControls() : "";
 
       return `
         <div class="panel">
@@ -566,11 +845,61 @@ function renderResults(results: PageResult[], analysis: { groupName: string; key
             </thead>
             <tbody>${tableBody}</tbody>
           </table>
+          ${serpControlsBlock}
           ${missingBlock}
         </div>
       `;
     })
     .join("");
+
+  const contentStructureContainer = qs<HTMLDivElement>("#content-structure-table");
+  if (state.currentAnalysis) {
+    contentStructureContainer.innerHTML = renderContentStructureTable(state.currentAnalysis);
+  } else {
+    contentStructureContainer.innerHTML = "";
+  }
+
+  const faqContainer = qs<HTMLDivElement>("#faq-table");
+  if (state.currentAnalysis) {
+    faqContainer.innerHTML = renderFaqTable(state.currentAnalysis);
+  } else {
+    faqContainer.innerHTML = "";
+  }
+
+  const reviewsContainer = qs<HTMLDivElement>("#reviews-table");
+  if (state.currentAnalysis) {
+    reviewsContainer.innerHTML = renderReviewsTable(state.currentAnalysis);
+  } else {
+    reviewsContainer.innerHTML = "";
+  }
+
+  const schemaContainer = qs<HTMLDivElement>("#schema-table");
+  if (state.currentAnalysis) {
+    schemaContainer.innerHTML = renderSchemaTable(state.currentAnalysis);
+  } else {
+    schemaContainer.innerHTML = "";
+  }
+
+  const imageAltContainer = qs<HTMLDivElement>("#image-alt-table");
+  if (state.currentAnalysis) {
+    imageAltContainer.innerHTML = renderImageAltsTable(state.currentAnalysis);
+  } else {
+    imageAltContainer.innerHTML = "";
+  }
+
+  const videoEmbedsContainer = qs<HTMLDivElement>("#video-embeds-table");
+  if (state.currentAnalysis) {
+    videoEmbedsContainer.innerHTML = renderVideoEmbedsTable(state.currentAnalysis);
+  } else {
+    videoEmbedsContainer.innerHTML = "";
+  }
+
+  const technicalChecksContainer = qs<HTMLDivElement>("#technical-checks-table");
+  if (state.currentAnalysis) {
+    technicalChecksContainer.innerHTML = renderTechnicalChecksTable(state.currentAnalysis);
+  } else {
+    technicalChecksContainer.innerHTML = "";
+  }
 
   renderGaps();
 }

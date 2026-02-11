@@ -1,0 +1,869 @@
+﻿{
+    "source":  "GeoNames GB dump (https://download.geonames.org/export/dump/GB.zip)",
+    "generatedAt":  "2026-02-11T10:08:13.3110482+00:00",
+    "minPopulation":  50000,
+    "featureCodes":  [
+                         "PPLC",
+                         "PPLA",
+                         "PPLA2"
+                     ],
+    "count":  107,
+    "cities":  [
+                   {
+                       "city":  "Aberdeen",
+                       "nation":  "Scotland",
+                       "country":  "United Kingdom",
+                       "population":  198590,
+                       "featureCode":  "PPLA2",
+                       "location":  "Aberdeen, Scotland, United Kingdom"
+                   },
+                   {
+                       "city":  "Aylesbury",
+                       "nation":  "England",
+                       "country":  "United Kingdom",
+                       "population":  74748,
+                       "featureCode":  "PPLA2",
+                       "location":  "Aylesbury, England, United Kingdom"
+                   },
+                   {
+                       "city":  "Bangor",
+                       "nation":  "Northern Ireland",
+                       "country":  "United Kingdom",
+                       "population":  61011,
+                       "featureCode":  "PPLA2",
+                       "location":  "Bangor, Northern Ireland, United Kingdom"
+                   },
+                   {
+                       "city":  "Barnsley",
+                       "nation":  "England",
+                       "country":  "United Kingdom",
+                       "population":  71447,
+                       "featureCode":  "PPLA2",
+                       "location":  "Barnsley, England, United Kingdom"
+                   },
+                   {
+                       "city":  "Barry",
+                       "nation":  "Wales",
+                       "country":  "United Kingdom",
+                       "population":  54673,
+                       "featureCode":  "PPLA2",
+                       "location":  "Barry, Wales, United Kingdom"
+                   },
+                   {
+                       "city":  "Bath",
+                       "nation":  "England",
+                       "country":  "United Kingdom",
+                       "population":  101557,
+                       "featureCode":  "PPLA2",
+                       "location":  "Bath, England, United Kingdom"
+                   },
+                   {
+                       "city":  "Bedford",
+                       "nation":  "England",
+                       "country":  "United Kingdom",
+                       "population":  106940,
+                       "featureCode":  "PPLA2",
+                       "location":  "Bedford, England, United Kingdom"
+                   },
+                   {
+                       "city":  "Belfast",
+                       "nation":  "Northern Ireland",
+                       "country":  "United Kingdom",
+                       "population":  348005,
+                       "featureCode":  "PPLA",
+                       "location":  "Belfast, Northern Ireland, United Kingdom"
+                   },
+                   {
+                       "city":  "Birmingham",
+                       "nation":  "England",
+                       "country":  "United Kingdom",
+                       "population":  1157603,
+                       "featureCode":  "PPLA2",
+                       "location":  "Birmingham, England, United Kingdom"
+                   },
+                   {
+                       "city":  "Blackburn",
+                       "nation":  "England",
+                       "country":  "United Kingdom",
+                       "population":  146521,
+                       "featureCode":  "PPLA2",
+                       "location":  "Blackburn, England, United Kingdom"
+                   },
+                   {
+                       "city":  "Blackpool",
+                       "nation":  "England",
+                       "country":  "United Kingdom",
+                       "population":  145007,
+                       "featureCode":  "PPLA2",
+                       "location":  "Blackpool, England, United Kingdom"
+                   },
+                   {
+                       "city":  "Bolton",
+                       "nation":  "England",
+                       "country":  "United Kingdom",
+                       "population":  141331,
+                       "featureCode":  "PPLA2",
+                       "location":  "Bolton, England, United Kingdom"
+                   },
+                   {
+                       "city":  "Bournemouth",
+                       "nation":  "England",
+                       "country":  "United Kingdom",
+                       "population":  163600,
+                       "featureCode":  "PPLA2",
+                       "location":  "Bournemouth, England, United Kingdom"
+                   },
+                   {
+                       "city":  "Bracknell",
+                       "nation":  "England",
+                       "country":  "United Kingdom",
+                       "population":  76103,
+                       "featureCode":  "PPLA2",
+                       "location":  "Bracknell, England, United Kingdom"
+                   },
+                   {
+                       "city":  "Bradford",
+                       "nation":  "England",
+                       "country":  "United Kingdom",
+                       "population":  366187,
+                       "featureCode":  "PPLA2",
+                       "location":  "Bradford, England, United Kingdom"
+                   },
+                   {
+                       "city":  "Bristol",
+                       "nation":  "England",
+                       "country":  "United Kingdom",
+                       "population":  479024,
+                       "featureCode":  "PPLA2",
+                       "location":  "Bristol, England, United Kingdom"
+                   },
+                   {
+                       "city":  "Bury",
+                       "nation":  "England",
+                       "country":  "United Kingdom",
+                       "population":  61044,
+                       "featureCode":  "PPLA2",
+                       "location":  "Bury, England, United Kingdom"
+                   },
+                   {
+                       "city":  "Cambridge",
+                       "nation":  "England",
+                       "country":  "United Kingdom",
+                       "population":  145674,
+                       "featureCode":  "PPLA2",
+                       "location":  "Cambridge, England, United Kingdom"
+                   },
+                   {
+                       "city":  "Cardiff",
+                       "nation":  "Wales",
+                       "country":  "United Kingdom",
+                       "population":  372089,
+                       "featureCode":  "PPLA",
+                       "location":  "Cardiff, Wales, United Kingdom"
+                   },
+                   {
+                       "city":  "Carlisle",
+                       "nation":  "England",
+                       "country":  "United Kingdom",
+                       "population":  78470,
+                       "featureCode":  "PPLA2",
+                       "location":  "Carlisle, England, United Kingdom"
+                   },
+                   {
+                       "city":  "Castlereagh",
+                       "nation":  "Northern Ireland",
+                       "country":  "United Kingdom",
+                       "population":  56679,
+                       "featureCode":  "PPLA2",
+                       "location":  "Castlereagh, Northern Ireland, United Kingdom"
+                   },
+                   {
+                       "city":  "Chelmsford",
+                       "nation":  "England",
+                       "country":  "United Kingdom",
+                       "population":  111511,
+                       "featureCode":  "PPLA2",
+                       "location":  "Chelmsford, England, United Kingdom"
+                   },
+                   {
+                       "city":  "Chester",
+                       "nation":  "England",
+                       "country":  "United Kingdom",
+                       "population":  90524,
+                       "featureCode":  "PPLA2",
+                       "location":  "Chester, England, United Kingdom"
+                   },
+                   {
+                       "city":  "Coventry",
+                       "nation":  "England",
+                       "country":  "United Kingdom",
+                       "population":  345324,
+                       "featureCode":  "PPLA2",
+                       "location":  "Coventry, England, United Kingdom"
+                   },
+                   {
+                       "city":  "Craigavon",
+                       "nation":  "Northern Ireland",
+                       "country":  "United Kingdom",
+                       "population":  59236,
+                       "featureCode":  "PPLA2",
+                       "location":  "Craigavon, Northern Ireland, United Kingdom"
+                   },
+                   {
+                       "city":  "Darlington",
+                       "nation":  "England",
+                       "country":  "United Kingdom",
+                       "population":  92363,
+                       "featureCode":  "PPLA2",
+                       "location":  "Darlington, England, United Kingdom"
+                   },
+                   {
+                       "city":  "Derby",
+                       "nation":  "England",
+                       "country":  "United Kingdom",
+                       "population":  270468,
+                       "featureCode":  "PPLA2",
+                       "location":  "Derby, England, United Kingdom"
+                   },
+                   {
+                       "city":  "Derry",
+                       "nation":  "Northern Ireland",
+                       "country":  "United Kingdom",
+                       "population":  83652,
+                       "featureCode":  "PPLA2",
+                       "location":  "Derry, Northern Ireland, United Kingdom"
+                   },
+                   {
+                       "city":  "Doncaster",
+                       "nation":  "England",
+                       "country":  "United Kingdom",
+                       "population":  113566,
+                       "featureCode":  "PPLA2",
+                       "location":  "Doncaster, England, United Kingdom"
+                   },
+                   {
+                       "city":  "Dudley",
+                       "nation":  "England",
+                       "country":  "United Kingdom",
+                       "population":  199059,
+                       "featureCode":  "PPLA2",
+                       "location":  "Dudley, England, United Kingdom"
+                   },
+                   {
+                       "city":  "Dundee",
+                       "nation":  "Scotland",
+                       "country":  "United Kingdom",
+                       "population":  148210,
+                       "featureCode":  "PPLA2",
+                       "location":  "Dundee, Scotland, United Kingdom"
+                   },
+                   {
+                       "city":  "Edinburgh",
+                       "nation":  "Scotland",
+                       "country":  "United Kingdom",
+                       "population":  514990,
+                       "featureCode":  "PPLA",
+                       "location":  "Edinburgh, Scotland, United Kingdom"
+                   },
+                   {
+                       "city":  "Exeter",
+                       "nation":  "England",
+                       "country":  "United Kingdom",
+                       "population":  130709,
+                       "featureCode":  "PPLA2",
+                       "location":  "Exeter, England, United Kingdom"
+                   },
+                   {
+                       "city":  "Gateshead",
+                       "nation":  "England",
+                       "country":  "United Kingdom",
+                       "population":  77649,
+                       "featureCode":  "PPLA2",
+                       "location":  "Gateshead, England, United Kingdom"
+                   },
+                   {
+                       "city":  "Glasgow",
+                       "nation":  "Scotland",
+                       "country":  "United Kingdom",
+                       "population":  626410,
+                       "featureCode":  "PPLA2",
+                       "location":  "Glasgow, Scotland, United Kingdom"
+                   },
+                   {
+                       "city":  "Gloucester",
+                       "nation":  "England",
+                       "country":  "United Kingdom",
+                       "population":  132416,
+                       "featureCode":  "PPLA2",
+                       "location":  "Gloucester, England, United Kingdom"
+                   },
+                   {
+                       "city":  "Grays",
+                       "nation":  "England",
+                       "country":  "United Kingdom",
+                       "population":  89755,
+                       "featureCode":  "PPLA2",
+                       "location":  "Grays, England, United Kingdom"
+                   },
+                   {
+                       "city":  "Grimsby",
+                       "nation":  "England",
+                       "country":  "United Kingdom",
+                       "population":  86138,
+                       "featureCode":  "PPLA2",
+                       "location":  "Grimsby, England, United Kingdom"
+                   },
+                   {
+                       "city":  "Halifax",
+                       "nation":  "England",
+                       "country":  "United Kingdom",
+                       "population":  82624,
+                       "featureCode":  "PPLA2",
+                       "location":  "Halifax, England, United Kingdom"
+                   },
+                   {
+                       "city":  "Hamilton",
+                       "nation":  "Scotland",
+                       "country":  "United Kingdom",
+                       "population":  54480,
+                       "featureCode":  "PPLA2",
+                       "location":  "Hamilton, Scotland, United Kingdom"
+                   },
+                   {
+                       "city":  "Hartlepool",
+                       "nation":  "England",
+                       "country":  "United Kingdom",
+                       "population":  88855,
+                       "featureCode":  "PPLA2",
+                       "location":  "Hartlepool, England, United Kingdom"
+                   },
+                   {
+                       "city":  "Hereford",
+                       "nation":  "England",
+                       "country":  "United Kingdom",
+                       "population":  60415,
+                       "featureCode":  "PPLA2",
+                       "location":  "Hereford, England, United Kingdom"
+                   },
+                   {
+                       "city":  "Hove",
+                       "nation":  "England",
+                       "country":  "United Kingdom",
+                       "population":  75174,
+                       "featureCode":  "PPLA2",
+                       "location":  "Hove, England, United Kingdom"
+                   },
+                   {
+                       "city":  "Huddersfield",
+                       "nation":  "England",
+                       "country":  "United Kingdom",
+                       "population":  149017,
+                       "featureCode":  "PPLA2",
+                       "location":  "Huddersfield, England, United Kingdom"
+                   },
+                   {
+                       "city":  "Ipswich",
+                       "nation":  "England",
+                       "country":  "United Kingdom",
+                       "population":  178835,
+                       "featureCode":  "PPLA2",
+                       "location":  "Ipswich, England, United Kingdom"
+                   },
+                   {
+                       "city":  "Kingston upon Hull",
+                       "nation":  "England",
+                       "country":  "United Kingdom",
+                       "population":  314018,
+                       "featureCode":  "PPLA2",
+                       "location":  "Kingston upon Hull, England, United Kingdom"
+                   },
+                   {
+                       "city":  "Leeds",
+                       "nation":  "England",
+                       "country":  "United Kingdom",
+                       "population":  536280,
+                       "featureCode":  "PPLA2",
+                       "location":  "Leeds, England, United Kingdom"
+                   },
+                   {
+                       "city":  "Leicester",
+                       "nation":  "England",
+                       "country":  "United Kingdom",
+                       "population":  368600,
+                       "featureCode":  "PPLA2",
+                       "location":  "Leicester, England, United Kingdom"
+                   },
+                   {
+                       "city":  "Lincoln",
+                       "nation":  "England",
+                       "country":  "United Kingdom",
+                       "population":  103813,
+                       "featureCode":  "PPLA2",
+                       "location":  "Lincoln, England, United Kingdom"
+                   },
+                   {
+                       "city":  "Lisburn",
+                       "nation":  "Northern Ireland",
+                       "country":  "United Kingdom",
+                       "population":  77506,
+                       "featureCode":  "PPLA2",
+                       "location":  "Lisburn, Northern Ireland, United Kingdom"
+                   },
+                   {
+                       "city":  "Liverpool",
+                       "nation":  "England",
+                       "country":  "United Kingdom",
+                       "population":  496770,
+                       "featureCode":  "PPLA2",
+                       "location":  "Liverpool, England, United Kingdom"
+                   },
+                   {
+                       "city":  "Livingston",
+                       "nation":  "Scotland",
+                       "country":  "United Kingdom",
+                       "population":  56840,
+                       "featureCode":  "PPLA2",
+                       "location":  "Livingston, Scotland, United Kingdom"
+                   },
+                   {
+                       "city":  "London",
+                       "nation":  "England",
+                       "country":  "United Kingdom",
+                       "population":  8961989,
+                       "featureCode":  "PPLC",
+                       "location":  "London, England, United Kingdom"
+                   },
+                   {
+                       "city":  "Luton",
+                       "nation":  "England",
+                       "country":  "United Kingdom",
+                       "population":  225262,
+                       "featureCode":  "PPLA2",
+                       "location":  "Luton, England, United Kingdom"
+                   },
+                   {
+                       "city":  "Maidenhead",
+                       "nation":  "England",
+                       "country":  "United Kingdom",
+                       "population":  70374,
+                       "featureCode":  "PPLA2",
+                       "location":  "Maidenhead, England, United Kingdom"
+                   },
+                   {
+                       "city":  "Maidstone",
+                       "nation":  "England",
+                       "country":  "United Kingdom",
+                       "population":  107627,
+                       "featureCode":  "PPLA2",
+                       "location":  "Maidstone, England, United Kingdom"
+                   },
+                   {
+                       "city":  "Manchester",
+                       "nation":  "England",
+                       "country":  "United Kingdom",
+                       "population":  568996,
+                       "featureCode":  "PPLA2",
+                       "location":  "Manchester, England, United Kingdom"
+                   },
+                   {
+                       "city":  "Middlesbrough",
+                       "nation":  "England",
+                       "country":  "United Kingdom",
+                       "population":  142707,
+                       "featureCode":  "PPLA2",
+                       "location":  "Middlesbrough, England, United Kingdom"
+                   },
+                   {
+                       "city":  "Milton Keynes",
+                       "nation":  "England",
+                       "country":  "United Kingdom",
+                       "population":  256385,
+                       "featureCode":  "PPLA2",
+                       "location":  "Milton Keynes, England, United Kingdom"
+                   },
+                   {
+                       "city":  "Newcastle upon Tyne",
+                       "nation":  "England",
+                       "country":  "United Kingdom",
+                       "population":  300125,
+                       "featureCode":  "PPLA2",
+                       "location":  "Newcastle upon Tyne, England, United Kingdom"
+                   },
+                   {
+                       "city":  "Newport",
+                       "nation":  "Wales",
+                       "country":  "United Kingdom",
+                       "population":  161506,
+                       "featureCode":  "PPLA2",
+                       "location":  "Newport, Wales, United Kingdom"
+                   },
+                   {
+                       "city":  "Newtownabbey",
+                       "nation":  "Northern Ireland",
+                       "country":  "United Kingdom",
+                       "population":  63860,
+                       "featureCode":  "PPLA2",
+                       "location":  "Newtownabbey, Northern Ireland, United Kingdom"
+                   },
+                   {
+                       "city":  "Northampton",
+                       "nation":  "England",
+                       "country":  "United Kingdom",
+                       "population":  245899,
+                       "featureCode":  "PPLA2",
+                       "location":  "Northampton, England, United Kingdom"
+                   },
+                   {
+                       "city":  "Norwich",
+                       "nation":  "England",
+                       "country":  "United Kingdom",
+                       "population":  143135,
+                       "featureCode":  "PPLA2",
+                       "location":  "Norwich, England, United Kingdom"
+                   },
+                   {
+                       "city":  "Nottingham",
+                       "nation":  "England",
+                       "country":  "United Kingdom",
+                       "population":  323632,
+                       "featureCode":  "PPLA2",
+                       "location":  "Nottingham, England, United Kingdom"
+                   },
+                   {
+                       "city":  "Oldham",
+                       "nation":  "England",
+                       "country":  "United Kingdom",
+                       "population":  237110,
+                       "featureCode":  "PPLA2",
+                       "location":  "Oldham, England, United Kingdom"
+                   },
+                   {
+                       "city":  "Oxford",
+                       "nation":  "England",
+                       "country":  "United Kingdom",
+                       "population":  162100,
+                       "featureCode":  "PPLA2",
+                       "location":  "Oxford, England, United Kingdom"
+                   },
+                   {
+                       "city":  "Paisley",
+                       "nation":  "Scotland",
+                       "country":  "United Kingdom",
+                       "population":  77270,
+                       "featureCode":  "PPLA2",
+                       "location":  "Paisley, Scotland, United Kingdom"
+                   },
+                   {
+                       "city":  "Peterborough",
+                       "nation":  "England",
+                       "country":  "United Kingdom",
+                       "population":  163379,
+                       "featureCode":  "PPLA2",
+                       "location":  "Peterborough, England, United Kingdom"
+                   },
+                   {
+                       "city":  "Plymouth",
+                       "nation":  "England",
+                       "country":  "United Kingdom",
+                       "population":  260203,
+                       "featureCode":  "PPLA2",
+                       "location":  "Plymouth, England, United Kingdom"
+                   },
+                   {
+                       "city":  "Portsmouth",
+                       "nation":  "England",
+                       "country":  "United Kingdom",
+                       "population":  208100,
+                       "featureCode":  "PPLA2",
+                       "location":  "Portsmouth, England, United Kingdom"
+                   },
+                   {
+                       "city":  "Preston",
+                       "nation":  "England",
+                       "country":  "United Kingdom",
+                       "population":  313332,
+                       "featureCode":  "PPLA2",
+                       "location":  "Preston, England, United Kingdom"
+                   },
+                   {
+                       "city":  "Reading",
+                       "nation":  "England",
+                       "country":  "United Kingdom",
+                       "population":  318014,
+                       "featureCode":  "PPLA2",
+                       "location":  "Reading, England, United Kingdom"
+                   },
+                   {
+                       "city":  "Rochdale",
+                       "nation":  "England",
+                       "country":  "United Kingdom",
+                       "population":  97550,
+                       "featureCode":  "PPLA2",
+                       "location":  "Rochdale, England, United Kingdom"
+                   },
+                   {
+                       "city":  "Rotherham",
+                       "nation":  "England",
+                       "country":  "United Kingdom",
+                       "population":  117618,
+                       "featureCode":  "PPLA2",
+                       "location":  "Rotherham, England, United Kingdom"
+                   },
+                   {
+                       "city":  "Salford",
+                       "nation":  "England",
+                       "country":  "United Kingdom",
+                       "population":  129794,
+                       "featureCode":  "PPLA2",
+                       "location":  "Salford, England, United Kingdom"
+                   },
+                   {
+                       "city":  "Scunthorpe",
+                       "nation":  "England",
+                       "country":  "United Kingdom",
+                       "population":  81576,
+                       "featureCode":  "PPLA2",
+                       "location":  "Scunthorpe, England, United Kingdom"
+                   },
+                   {
+                       "city":  "Sheffield",
+                       "nation":  "England",
+                       "country":  "United Kingdom",
+                       "population":  556500,
+                       "featureCode":  "PPLA2",
+                       "location":  "Sheffield, England, United Kingdom"
+                   },
+                   {
+                       "city":  "Shrewsbury",
+                       "nation":  "England",
+                       "country":  "United Kingdom",
+                       "population":  76782,
+                       "featureCode":  "PPLA2",
+                       "location":  "Shrewsbury, England, United Kingdom"
+                   },
+                   {
+                       "city":  "Slough",
+                       "nation":  "England",
+                       "country":  "United Kingdom",
+                       "population":  164793,
+                       "featureCode":  "PPLA2",
+                       "location":  "Slough, England, United Kingdom"
+                   },
+                   {
+                       "city":  "Solihull",
+                       "nation":  "England",
+                       "country":  "United Kingdom",
+                       "population":  126577,
+                       "featureCode":  "PPLA2",
+                       "location":  "Solihull, England, United Kingdom"
+                   },
+                   {
+                       "city":  "South Shields",
+                       "nation":  "England",
+                       "country":  "United Kingdom",
+                       "population":  83655,
+                       "featureCode":  "PPLA2",
+                       "location":  "South Shields, England, United Kingdom"
+                   },
+                   {
+                       "city":  "Southampton",
+                       "nation":  "England",
+                       "country":  "United Kingdom",
+                       "population":  269781,
+                       "featureCode":  "PPLA2",
+                       "location":  "Southampton, England, United Kingdom"
+                   },
+                   {
+                       "city":  "Southend-on-Sea",
+                       "nation":  "England",
+                       "country":  "United Kingdom",
+                       "population":  295310,
+                       "featureCode":  "PPLA2",
+                       "location":  "Southend-on-Sea, England, United Kingdom"
+                   },
+                   {
+                       "city":  "Southport",
+                       "nation":  "England",
+                       "country":  "United Kingdom",
+                       "population":  91703,
+                       "featureCode":  "PPLA2",
+                       "location":  "Southport, England, United Kingdom"
+                   },
+                   {
+                       "city":  "St Helens",
+                       "nation":  "England",
+                       "country":  "United Kingdom",
+                       "population":  183200,
+                       "featureCode":  "PPLA2",
+                       "location":  "St Helens, England, United Kingdom"
+                   },
+                   {
+                       "city":  "Stafford",
+                       "nation":  "England",
+                       "country":  "United Kingdom",
+                       "population":  70145,
+                       "featureCode":  "PPLA2",
+                       "location":  "Stafford, England, United Kingdom"
+                   },
+                   {
+                       "city":  "Stockport",
+                       "nation":  "England",
+                       "country":  "United Kingdom",
+                       "population":  139052,
+                       "featureCode":  "PPLA2",
+                       "location":  "Stockport, England, United Kingdom"
+                   },
+                   {
+                       "city":  "Stockton-on-Tees",
+                       "nation":  "England",
+                       "country":  "United Kingdom",
+                       "population":  79957,
+                       "featureCode":  "PPLA2",
+                       "location":  "Stockton-on-Tees, England, United Kingdom"
+                   },
+                   {
+                       "city":  "Stoke-on-Trent",
+                       "nation":  "England",
+                       "country":  "United Kingdom",
+                       "population":  258366,
+                       "featureCode":  "PPLA2",
+                       "location":  "Stoke-on-Trent, England, United Kingdom"
+                   },
+                   {
+                       "city":  "Sunderland",
+                       "nation":  "England",
+                       "country":  "United Kingdom",
+                       "population":  170134,
+                       "featureCode":  "PPLA2",
+                       "location":  "Sunderland, England, United Kingdom"
+                   },
+                   {
+                       "city":  "Swansea",
+                       "nation":  "Wales",
+                       "country":  "United Kingdom",
+                       "population":  300352,
+                       "featureCode":  "PPLA2",
+                       "location":  "Swansea, Wales, United Kingdom"
+                   },
+                   {
+                       "city":  "Swindon",
+                       "nation":  "England",
+                       "country":  "United Kingdom",
+                       "population":  201669,
+                       "featureCode":  "PPLA2",
+                       "location":  "Swindon, England, United Kingdom"
+                   },
+                   {
+                       "city":  "Taunton",
+                       "nation":  "England",
+                       "country":  "United Kingdom",
+                       "population":  64621,
+                       "featureCode":  "PPLA2",
+                       "location":  "Taunton, England, United Kingdom"
+                   },
+                   {
+                       "city":  "Telford",
+                       "nation":  "England",
+                       "country":  "United Kingdom",
+                       "population":  155570,
+                       "featureCode":  "PPLA2",
+                       "location":  "Telford, England, United Kingdom"
+                   },
+                   {
+                       "city":  "Torquay",
+                       "nation":  "England",
+                       "country":  "United Kingdom",
+                       "population":  65388,
+                       "featureCode":  "PPLA2",
+                       "location":  "Torquay, England, United Kingdom"
+                   },
+                   {
+                       "city":  "Wakefield",
+                       "nation":  "England",
+                       "country":  "United Kingdom",
+                       "population":  109766,
+                       "featureCode":  "PPLA2",
+                       "location":  "Wakefield, England, United Kingdom"
+                   },
+                   {
+                       "city":  "Wallasey",
+                       "nation":  "England",
+                       "country":  "United Kingdom",
+                       "population":  58794,
+                       "featureCode":  "PPLA2",
+                       "location":  "Wallasey, England, United Kingdom"
+                   },
+                   {
+                       "city":  "Walsall",
+                       "nation":  "England",
+                       "country":  "United Kingdom",
+                       "population":  172141,
+                       "featureCode":  "PPLA2",
+                       "location":  "Walsall, England, United Kingdom"
+                   },
+                   {
+                       "city":  "Warrington",
+                       "nation":  "England",
+                       "country":  "United Kingdom",
+                       "population":  172330,
+                       "featureCode":  "PPLA2",
+                       "location":  "Warrington, England, United Kingdom"
+                   },
+                   {
+                       "city":  "Weston-super-Mare",
+                       "nation":  "England",
+                       "country":  "United Kingdom",
+                       "population":  82903,
+                       "featureCode":  "PPLA2",
+                       "location":  "Weston-super-Mare, England, United Kingdom"
+                   },
+                   {
+                       "city":  "Widnes",
+                       "nation":  "England",
+                       "country":  "United Kingdom",
+                       "population":  61464,
+                       "featureCode":  "PPLA2",
+                       "location":  "Widnes, England, United Kingdom"
+                   },
+                   {
+                       "city":  "Wigan",
+                       "nation":  "England",
+                       "country":  "United Kingdom",
+                       "population":  175405,
+                       "featureCode":  "PPLA2",
+                       "location":  "Wigan, England, United Kingdom"
+                   },
+                   {
+                       "city":  "Wolverhampton",
+                       "nation":  "England",
+                       "country":  "United Kingdom",
+                       "population":  263700,
+                       "featureCode":  "PPLA2",
+                       "location":  "Wolverhampton, England, United Kingdom"
+                   },
+                   {
+                       "city":  "Worcester",
+                       "nation":  "England",
+                       "country":  "United Kingdom",
+                       "population":  101659,
+                       "featureCode":  "PPLA2",
+                       "location":  "Worcester, England, United Kingdom"
+                   },
+                   {
+                       "city":  "Wrexham",
+                       "nation":  "Wales",
+                       "country":  "United Kingdom",
+                       "population":  65692,
+                       "featureCode":  "PPLA2",
+                       "location":  "Wrexham, Wales, United Kingdom"
+                   },
+                   {
+                       "city":  "York",
+                       "nation":  "England",
+                       "country":  "United Kingdom",
+                       "population":  156135,
+                       "featureCode":  "PPLA2",
+                       "location":  "York, England, United Kingdom"
+                   }
+               ]
+}

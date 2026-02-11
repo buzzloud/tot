@@ -50,6 +50,94 @@ function collectHeadingText(root: ParentNode, selector: string): string {
   return items.join(" ");
 }
 
+function collectFirstWordsAfterH1(main: Element | null, limit = 100): string {
+  if (!main) {
+    return "";
+  }
+
+  const walker = document.createTreeWalker(
+    main,
+    NodeFilter.SHOW_ELEMENT | NodeFilter.SHOW_TEXT
+  );
+
+  let afterH1 = false;
+  let foundH1 = false;
+  const words: string[] = [];
+
+  while (walker.nextNode()) {
+    const node = walker.currentNode;
+
+    if (node.nodeType === Node.ELEMENT_NODE) {
+      const tag = (node as Element).tagName.toLowerCase();
+      if (tag === "h1" && !foundH1) {
+        foundH1 = true;
+        afterH1 = true;
+      }
+      continue;
+    }
+
+    if (!afterH1) {
+      continue;
+    }
+
+    if (node.nodeType === Node.TEXT_NODE) {
+      const parent = (node.parentElement || null);
+      if (parent && parent.tagName.toLowerCase() === "h1") {
+        continue;
+      }
+
+      const text = cleanText(node.nodeValue || "");
+      if (!text) {
+        continue;
+      }
+
+      const parts = text.split(" ");
+      for (const part of parts) {
+        if (part.length === 0) {
+          continue;
+        }
+        words.push(part);
+        if (words.length >= limit) {
+          return words.join(" ");
+        }
+      }
+    }
+  }
+
+  return words.join(" ");
+}
+
+function collectImageAltData(main: Element | null): {
+  altTexts: string[];
+  total: number;
+  withAlt: number;
+  missingAlt: number;
+} {
+  if (!main) {
+    return { altTexts: [], total: 0, withAlt: 0, missingAlt: 0 };
+  }
+
+  const images = Array.from(main.querySelectorAll("img"));
+  const altTexts: string[] = [];
+  let withAlt = 0;
+
+  images.forEach((img) => {
+    const alt = cleanText(img.getAttribute("alt") || "");
+    if (alt.length > 0) {
+      withAlt += 1;
+      altTexts.push(alt);
+    }
+  });
+
+  const total = images.length;
+  return {
+    altTexts,
+    total,
+    withAlt,
+    missingAlt: Math.max(0, total - withAlt)
+  };
+}
+
 function selectMain(doc: Document): Element | null {
   const pickBest = (nodes: Element[]): Element | null => {
     let best: Element | null = null;
@@ -86,6 +174,8 @@ function buildContent(main: Element | null, title: string, metaDescription: stri
   const h1 = main ? collectHeadingText(main, "h1") : "";
   const h2 = main ? collectHeadingText(main, "h2") : "";
   const h3 = main ? collectHeadingText(main, "h3") : "";
+  const first100AfterH1 = collectFirstWordsAfterH1(main, 100);
+  const imageAltData = collectImageAltData(main);
 
   let bodyText = "";
   if (main) {
@@ -105,6 +195,11 @@ function buildContent(main: Element | null, title: string, metaDescription: stri
     h2,
     h3,
     body: bodyText,
+    first100AfterH1,
+    imageAltTexts: imageAltData.altTexts,
+    totalImages: imageAltData.total,
+    imagesWithAlt: imageAltData.withAlt,
+    imagesMissingAlt: imageAltData.missingAlt,
     wordCount,
     source: "pruned",
     previewText
@@ -124,6 +219,11 @@ export function extractContent(html: string): ExtractedContent {
       h2: "",
       h3: "",
       body: "",
+      first100AfterH1: "",
+      imageAltTexts: [],
+      totalImages: 0,
+      imagesWithAlt: 0,
+      imagesMissingAlt: 0,
       wordCount: 0,
       source: "pruned",
       previewText: ""

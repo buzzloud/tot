@@ -1,10 +1,13 @@
 import type { AnalysisResult, KeywordGroup, ProxySettings } from "../types";
+import type { RankingHistoryEntry } from "../storage/rankings-history";
 
 export interface AppState {
   keywordGroups: KeywordGroup[];
   currentAnalysis: AnalysisResult | null;
   proxySettings: ProxySettings;
   editingGroupId: string | null;
+  rankingsHistory: RankingHistoryEntry[];
+  archivedRankingsHistory: RankingHistoryEntry[];
 }
 
 export const state: AppState = {
@@ -16,5 +19,7 @@ export const state: AppState = {
     timeoutMs: 15000,
     renderJs: false
   },
-  editingGroupId: null
+  editingGroupId: null,
+  rankingsHistory: [],
+  archivedRankingsHistory: []
 };

@@ -51,3 +51,12 @@
 - Added summary module to render Title/Meta/H1 per URL before results.
 - Highlighted found keywords in those fields (bucket-specific) with yellow mark.
 - Kept integration isolated via new summary module and minimal UI hookup.
+
+## Stage 11: Domain Labels + Gap Highlighting
+- Replaced competitor labels with domain-based labels; my site shows "Your Site (domain)".
+- Added gap badge for keywords missing on my site but present on competitors.
+- Highlighted competitor keyword rows when the keyword is missing on my page.
+
+## Stage 12: FAQ Presence Detection
+- Added FAQ phrase detection (H2/H3/Body) using a fixed phrase list.
+- Added FAQ presence table below keyword tables with matched phrases per URL.
