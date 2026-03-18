@@ -31,6 +31,20 @@ function getEntryDomain(entry: RankingHistoryEntry): string {
   return fromTarget || "-";
 }
 
+function renderCopyUrl(url: string): string {
+  const value = (url || "").trim();
+  if (!value || value === "-") {
+    return "-";
+  }
+  return `
+    <span
+      class="history-url copy-url-cell"
+      data-copy-url="${encodeURIComponent(value)}"
+      title="Click to copy URL"
+    >${escapeHtml(value)}</span>
+  `;
+}
+
 function renderTop10(entry: RankingHistoryEntry): string {
   if (!entry.response.topOrganic || entry.response.topOrganic.length === 0) {
     return "<p class=\"hint\">No top 10 data.</p>";
@@ -46,7 +60,7 @@ function renderTop10(entry: RankingHistoryEntry): string {
         <td>#${item.position}</td>
         <td>${escapeHtml(item.domain || "-")}</td>
         <td>${escapeHtml(item.title || "-")}</td>
-        <td class="history-url">${escapeHtml(item.link || "-")}</td>
+        <td>${renderCopyUrl(item.link || "-")}</td>
       </tr>
     `
     )
@@ -112,7 +126,7 @@ function renderRankingsEntries(entries: RankingHistoryEntry[], archived: boolean
             </div>
             <div class="history-meta-item">
               <div class="history-meta-label">Ranked URL</div>
-              <div class="history-url">${escapeHtml(rankUrl)}</div>
+              <div>${renderCopyUrl(rankUrl)}</div>
             </div>
           </div>
           <details class="history-toggle">

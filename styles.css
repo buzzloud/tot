@@ -216,6 +216,19 @@ select {
   word-break: break-word;
 }
 
+.copy-url-cell {
+  cursor: pointer;
+}
+
+.copy-url-cell:hover {
+  text-decoration: none;
+}
+
+.copy-url-cell.copied {
+  background: #e3f5e9;
+  border-radius: 4px;
+}
+
 .kw-hit {
   background: #ffe38a;
   padding: 0 2px;
@@ -349,6 +362,7 @@ select {
 }
 
 .history-url {
+  display: inline-block;
   max-width: 340px;
   word-break: break-word;
 }

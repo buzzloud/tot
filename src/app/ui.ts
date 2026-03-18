@@ -96,6 +96,7 @@ function bindEvents(): void {
     state.rankingsHistory = [];
     renderRankingsHistory();
   });
+  bindUrlCopy();
   bindRankingsHistoryInteractions();
   bindSummaryCopy();
 }
@@ -335,6 +336,30 @@ function bindSummaryCopy(): void {
     copyToClipboard(text);
     button.classList.add("copied");
     window.setTimeout(() => button.classList.remove("copied"), 600);
+  });
+}
+
+function bindUrlCopy(): void {
+  const appRoot = qs<HTMLDivElement>("#app");
+  appRoot.addEventListener("click", (event) => {
+    const target = event.target as HTMLElement | null;
+    const urlCell = target?.closest(".copy-url-cell") as HTMLElement | null;
+    if (!urlCell) {
+      return;
+    }
+
+    event.preventDefault();
+    event.stopPropagation();
+
+    const encoded = urlCell.dataset.copyUrl || "";
+    const text = encoded ? decodeURIComponent(encoded) : (urlCell.textContent || "").trim();
+    if (!text || text === "-") {
+      return;
+    }
+
+    copyToClipboard(text);
+    urlCell.classList.add("copied");
+    window.setTimeout(() => urlCell.classList.remove("copied"), 700);
   });
 }
 
@@ -741,7 +766,14 @@ function renderResults(results: PageResult[], analysis: { groupName: string; key
         return `
           <div class="panel">
             <h3>${escapeHtml(result.label)}</h3>
-            <p class="hint">URL: ${escapeHtml(result.url)}</p>
+            <p class="hint">
+              URL:
+              <span
+                class="copy-url-cell"
+                data-copy-url="${encodeURIComponent(result.url)}"
+                title="Click to copy URL"
+              >${escapeHtml(result.url)}</span>
+            </p>
             <p class="hint">Error: ${escapeHtml(result.errorMessage || "Unknown error")}</p>
             <p class="hint">${escapeHtml(proxyTip)}</p>
           </div>
@@ -825,7 +857,14 @@ function renderResults(results: PageResult[], analysis: { groupName: string; key
       return `
         <div class="panel">
           <h3>${escapeHtml(result.label)}</h3>
-          <p class="hint">URL: ${escapeHtml(result.url)}</p>
+          <p class="hint">
+            URL:
+            <span
+              class="copy-url-cell"
+              data-copy-url="${encodeURIComponent(result.url)}"
+              title="Click to copy URL"
+            >${escapeHtml(result.url)}</span>
+          </p>
           <p class="hint">${summarizeResult(result)}</p>
           ${warningHtml}
           ${previewHtml}
